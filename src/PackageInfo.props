@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+
+    <Authors>Vicente Penades</Authors>
+    <Copyright>Copyright (c) 2021 Vicente Penades</Copyright>
+    <Description>.NET wrapper over [Khronos glTF-Validator](https://github.com/KhronosGroup/glTF-Validator)</Description>
+
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/vpenades/GltfValidator</RepositoryUrl>    
+    <PackageProjectUrl>https://github.com/vpenades/GltfValidator</PackageProjectUrl>
+
+    <PackageTags>C# glTF 3D</PackageTags>        
+
+    <DocumentationFile>bin\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
+
+  </PropertyGroup>
+
+  <!-- https://github.com/NuGet/Home/wiki/Packaging-License-within-the-nupkg#project-properties -->
+
+  <PropertyGroup>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <!--
+  <ItemGroup>
+    <None Include="$(MsBuildThisFileDirectory)..\build\Icons\GltfValidator.png" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+  -->
+
+</Project>
