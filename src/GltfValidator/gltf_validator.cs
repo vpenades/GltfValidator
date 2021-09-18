@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace GltfValidator
 {
@@ -36,16 +37,7 @@ namespace GltfValidator
 
         public static ValidationReport ValidateFile(string gltfFilePath, int timeOut = 10000)
         {
-            if (string.IsNullOrWhiteSpace(ValidatorExePath)) return null;
-
-            if (!System.IO.File.Exists(ValidatorExePath)) throw new System.IO.FileNotFoundException(ValidatorExePath);
-
-            if (!System.IO.Path.IsPathRooted(gltfFilePath)) gltfFilePath = System.IO.Path.GetFullPath(gltfFilePath);
-
-            var psi = new System.Diagnostics.ProcessStartInfo(ValidatorExePath);
-            psi.Arguments = $"-p -r -a --stdout \"{gltfFilePath}\"";
-            psi.UseShellExecute = false;
-            psi.RedirectStandardOutput = true;            
+            var psi = CreateStartInfo(gltfFilePath);
 
             using (var p = System.Diagnostics.Process.Start(psi))
             {
@@ -65,6 +57,40 @@ namespace GltfValidator
 
                 return ValidationReport.Parse(mainReport);
             }
-        }        
+        }
+
+        public static async Task<ValidationReport> ValidateFileAsync(string gltfFilePath, System.Threading.CancellationToken token)
+        {
+            var psi = CreateStartInfo(gltfFilePath);
+
+            using (var p = System.Diagnostics.Process.Start(psi))
+            {
+                // To avoid deadlocks, always read the output stream first and then wait.
+                var mainReport = await p.StandardOutput.ReadToEndAsync();
+
+                await Task.Run(p.WaitForExit, token);
+
+                if (string.IsNullOrWhiteSpace(mainReport)) return null;
+
+                return ValidationReport.Parse(mainReport);
+            }
+        }
+
+
+        private static System.Diagnostics.ProcessStartInfo CreateStartInfo(string gltfFilePath)
+        {
+            if (string.IsNullOrWhiteSpace(ValidatorExePath)) return null;
+
+            if (!System.IO.File.Exists(ValidatorExePath)) throw new System.IO.FileNotFoundException(ValidatorExePath);
+
+            if (!System.IO.Path.IsPathRooted(gltfFilePath)) gltfFilePath = System.IO.Path.GetFullPath(gltfFilePath);
+
+            var psi = new System.Diagnostics.ProcessStartInfo(ValidatorExePath);
+            psi.Arguments = $"-p -r -a --stdout \"{gltfFilePath}\"";
+            psi.UseShellExecute = false;
+            psi.RedirectStandardOutput = true;
+
+            return psi;
+        }
     }
 }
