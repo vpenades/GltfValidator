@@ -43,7 +43,7 @@
   </ItemGroup>
   
   <ItemGroup>    
-    <Content Include="..\..\tools\win64\gltf_validator.exe" Link="gltf_validator.exe" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="yes" />
+    <Content Include="..\..\tools\win64\gltf_validator.exe" Link="gltf_validator.exe" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />
     <Content Include="..\..\tools\linux64\gltf_validator" Link="gltf_validator" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />    
   </ItemGroup>  
 

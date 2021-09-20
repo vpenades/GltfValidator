@@ -1,4 +1,6 @@
 # GltfValidator
+![GitHub](https://img.shields.io/github/license/vpenades/GltfValidator)
+[![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/GltfValidator)](https://www.nuget.org/packages/GltfValidator)
 
 ### Overview
 
