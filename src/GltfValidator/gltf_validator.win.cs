@@ -11,8 +11,7 @@ namespace GltfValidator
     /// Wraps Khronos GLTF Validator command line tool.
     /// </summary>
     /// <remarks>
-    /// <see href="https://github.com/KhronosGroup/glTF-Validator"/>
-    /// LINUX execution path has not been tested!
+    /// <see href="https://github.com/KhronosGroup/glTF-Validator"/>    
     /// </remarks>
     static class gltf_validator
     {

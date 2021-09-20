@@ -5,13 +5,13 @@
 
     <Authors>Vicente Penades</Authors>
     <Copyright>Copyright (c) 2021 Vicente Penades</Copyright>
-    <Description>.NET wrapper over [Khronos glTF-Validator](https://github.com/KhronosGroup/glTF-Validator)</Description>
+    <Description>.NET wrapper over Khronos official glTF-Validator</Description>
 
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/vpenades/GltfValidator</RepositoryUrl>    
     <PackageProjectUrl>https://github.com/vpenades/GltfValidator</PackageProjectUrl>
 
-    <PackageTags>C# glTF 3D</PackageTags>        
+    <PackageTags>C# glTF 3D gltf-validator</PackageTags>        
 
     <DocumentationFile>bin\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
 

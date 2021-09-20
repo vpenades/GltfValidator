@@ -1,22 +1,52 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <TargetFrameworks>net471;netcoreapp3.1;net5.0-windows</TargetFrameworks>    
+    <TargetFrameworks>netstandard2.0;net471;netcoreapp3.1;net5.0-windows</TargetFrameworks>    
     <RootNamespace>GltfValidator</RootNamespace>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <Import Project="..\PackageInfo.props"/>
   <Import Project="..\Version.props"/>
-  
-  <ItemGroup>
-    <!--
-    <Content Include="..\..\tools\linux64\gltf_validator" Link="gltf_validator" CopyToOutputDirectory="PreserveNewest" />
-    -->
-    <Content Include="..\..\tools\win64\gltf_validator.exe" Link="gltf_validator.exe" CopyToOutputDirectory="PreserveNewest" />
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">    
+    <RequireSystemTextJson>true</RequireSystemTextJson>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net471' ">
+    <IsWindows>true</IsWindows>
+    <RequireSystemTextJson>true</RequireSystemTextJson>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+    <IsWindows>true</IsWindows>
+    <IsLinux>true</IsLinux>
+    <RequireSystemTextJson>true</RequireSystemTextJson>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
+    <IsWindows>true</IsWindows>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(IsWindows)' == 'true' " >
+    <Compile Remove="*.std.cs" />
+    <None Include="*.std.cs" />
   </ItemGroup>
 
-  <ItemGroup>        
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' " >
+    <Compile Remove="*.win.cs" />
+    <None Include="*.win.cs" />
+  </ItemGroup>
+  
+  <ItemGroup Condition=" '$(IsWindows)' == 'true' " >    
+    <Content Include="..\..\tools\win64\gltf_validator.exe" Link="gltf_validator.exe" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(IsLinux)' == 'true' " >
+    <Content Include="..\..\tools\linux64\gltf_validator" Link="gltf_validator" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />    
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(RequireSystemTextJson)' == 'true' ">        
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
   </ItemGroup>
 
