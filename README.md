@@ -2,7 +2,7 @@
 
 ### Overview
 
-This is a small .Net wrapper over [Khronos glTF-Validator](https://github.com/KhronosGroup/glTF-Validator)
+This is a small .Net wrapper over Khronos [glTF-Validator](https://github.com/KhronosGroup/glTF-Validator)
 
 The main usage of this library is on unit tests and content pipelines.
 
@@ -22,4 +22,4 @@ var report = ValidationReport.Validate("avocado.gltf");
 
 ### Credits
 
-Thanks to [Khronos](https://github.com/KhronosGroup/glTF-Validator)
+Thanks to Khronos for developing [glTF-Validator](https://github.com/KhronosGroup/glTF-Validator).
