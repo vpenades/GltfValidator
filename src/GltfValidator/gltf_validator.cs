@@ -86,7 +86,7 @@ namespace GltfValidator
             if (!System.IO.Path.IsPathRooted(gltfFilePath)) gltfFilePath = System.IO.Path.GetFullPath(gltfFilePath);
 
             var psi = new System.Diagnostics.ProcessStartInfo(ValidatorExePath);
-            psi.Arguments = $"-p -r -a --stdout \"{gltfFilePath}\"";
+            psi.Arguments = $"-p -r -a -t -o \"{gltfFilePath}\"";
             psi.UseShellExecute = false;
             psi.RedirectStandardOutput = true;
 
