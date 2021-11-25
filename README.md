@@ -6,14 +6,17 @@
 
 This is a small .Net wrapper over Khronos [glTF-Validator](https://github.com/KhronosGroup/glTF-Validator)
 
-The main usage of this library is on unit tests and content pipelines.
+### Project status
 
-Current version uses glTF-Validator is v2.0.0-dev.3.5 windows binaries, but it could be improved to
-support more environments also supported by glTF-Validator (linux and mac).
+Current version uses `glTF-Validator v2.0.0-dev.3.5`
+
+Right now, only windows platform is supported, but the project could be improved to cover linux and mac (help needed).
 
 ### Usage
 
-Simple reference this package and call:
+The main usage of this library is for unit tests and content pipelines.
+
+Simply reference this package and call:
 
 ```c#
 using GltfValidator;
