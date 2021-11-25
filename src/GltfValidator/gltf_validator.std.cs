@@ -21,5 +21,10 @@ namespace GltfValidator
         {
             throw new NotSupportedException();
         }
+
+        public static async Task<ValidationReport> ValidateFileAsyncProcessX(string gltfFilePath, System.Threading.CancellationToken token)
+        {
+            throw new NotSupportedException();
+        }
     }
 }

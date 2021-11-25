@@ -6,8 +6,8 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <Import Project="..\PackageInfo.props"/>
-  <Import Project="..\Version.props"/>
+  <Import Project="..\PackageInfo.props" />
+  <Import Project="..\Version.props" />
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">    
     <RequireSystemTextJson>true</RequireSystemTextJson>
@@ -28,12 +28,12 @@
     <IsWindows>true</IsWindows>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(IsWindows)' == 'true' " >
+  <ItemGroup Condition=" '$(IsWindows)' == 'true' ">
     <Compile Remove="*.std.cs" />
     <None Include="*.std.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' " >
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <Compile Remove="*.win.cs" />
     <None Include="*.win.cs" />
   </ItemGroup>
@@ -41,7 +41,11 @@
   <ItemGroup Condition=" '$(RequireSystemTextJson)' == 'true' ">        
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
   </ItemGroup>
-  
+
+  <ItemGroup>
+    <PackageReference Include="ProcessX" Version="1.5.3" />
+  </ItemGroup>
+
   <ItemGroup>    
     <Content Include="..\..\tools\win64\gltf_validator.exe" Link="gltf_validator.exe" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />
     <Content Include="..\..\tools\linux64\gltf_validator" Link="gltf_validator" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />    

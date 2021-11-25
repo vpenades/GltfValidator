@@ -25,6 +25,21 @@ namespace GltfValidator
         }
 
         [Test]
+        public async System.Threading.Tasks.Task Test1Async()
+        {
+            var path = TestContext.CurrentContext.TestDirectory;
+            path = System.IO.Path.Combine(path, "Resources\\Avocado\\Avocado.gltf");
+
+            var report = await ValidationReport.ValidateAsync(path, System.Threading.CancellationToken.None);
+
+            TestContext.WriteLine(report.ToString());
+
+            _Check(report.Issues);
+
+            Assert.AreEqual(Severity.None, report.Severity);
+        }
+
+        [Test]
         public void Test2()
         {
             var path = TestContext.CurrentContext.TestDirectory;

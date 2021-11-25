@@ -75,6 +75,19 @@ namespace GltfValidator
             }
         }
 
+        public static async Task<ValidationReport> ValidateFileAsyncProcessX(string gltfFilePath, System.Threading.CancellationToken token)
+        {
+            var psi = CreateStartInfo(gltfFilePath);
+
+            Cysharp.Diagnostics.ProcessX.AcceptableExitCodes = new int[] { 0 };
+
+            var lines = await Cysharp.Diagnostics.ProcessX
+                .StartAsync(psi)
+                .ToTask(token);            
+
+            return ValidationReport.Parse(string.Join("\r\n", lines));
+        }
+
 
         private static System.Diagnostics.ProcessStartInfo CreateStartInfo(string gltfFilePath)
         {

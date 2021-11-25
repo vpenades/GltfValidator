@@ -57,6 +57,11 @@ namespace GltfValidator
             return gltf_validator.ValidateFile(filePath);
         }
 
+        public static async Task<ValidationReport> ValidateAsync(string filePath, System.Threading.CancellationToken token)
+        {
+            return await gltf_validator.ValidateFileAsyncProcessX(filePath, token);
+        }
+
         #endregion
 
         #region serialization
