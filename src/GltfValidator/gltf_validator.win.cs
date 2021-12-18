@@ -79,11 +79,14 @@ namespace GltfValidator
         {
             var psi = CreateStartInfo(gltfFilePath);
 
-            Cysharp.Diagnostics.ProcessX.AcceptableExitCodes = new int[] { 0 };
-
+            /*
             var lines = await Cysharp.Diagnostics.ProcessX
                 .StartAsync(psi)
-                .ToTask(token);            
+                .ToTask(token);*/
+
+            var (_, stdout, stderror) = Cysharp.Diagnostics.ProcessX.GetDualAsyncEnumerable(psi);
+            var lines = await stdout.ToTask();
+            var error = await stderror.ToTask();
 
             return ValidationReport.Parse(string.Join("\r\n", lines));
         }
