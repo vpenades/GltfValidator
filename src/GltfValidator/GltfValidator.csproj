@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net471;netcoreapp3.1;net5.0-windows</TargetFrameworks>    
+    <TargetFrameworks>netstandard2.0;net471;net5.0;net6.0</TargetFrameworks>    
     <RootNamespace>GltfValidator</RootNamespace>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -14,33 +14,31 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net471' ">
-    <IsWindows>true</IsWindows>
+    <IsPlatform>true</IsPlatform>
     <RequireSystemTextJson>true</RequireSystemTextJson>
+  </PropertyGroup>  
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+    <IsPlatform>true</IsPlatform>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
-    <IsWindows>true</IsWindows>
-    <IsLinux>true</IsLinux>
-    <RequireSystemTextJson>true</RequireSystemTextJson>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+    <IsPlatform>true</IsPlatform>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <IsWindows>true</IsWindows>
-  </PropertyGroup>
-
-  <ItemGroup Condition=" '$(IsWindows)' == 'true' ">
+  <ItemGroup Condition=" '$(IsPlatform)' == 'true' ">
     <Compile Remove="*.std.cs" />
     <None Include="*.std.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <Compile Remove="*.win.cs" />
-    <None Include="*.win.cs" />
+  <ItemGroup Condition=" '$(IsPlatform)' != 'true' ">
+    <Compile Remove="*.plat.cs" />
+    <None Include="*.plat.cs" />
   </ItemGroup>
   
   <ItemGroup Condition=" '$(RequireSystemTextJson)' == 'true' ">        
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
-  </ItemGroup>
+  </ItemGroup>  
 
   <ItemGroup>
     <PackageReference Include="ProcessX" Version="1.5.3" />
