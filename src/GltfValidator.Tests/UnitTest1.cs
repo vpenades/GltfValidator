@@ -21,7 +21,7 @@ namespace GltfValidator
 
             _Check(report.Issues);
 
-            Assert.AreEqual(Severity.None, report.Severity);
+            Assert.AreEqual(Severity.Hint, report.Severity);
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace GltfValidator
 
             _Check(report.Issues);
 
-            Assert.AreEqual(Severity.None, report.Severity);
+            Assert.AreEqual(Severity.Hint, report.Severity);
         }
 
         [Test]
@@ -52,10 +52,12 @@ namespace GltfValidator
             _Check(report.Issues);
 
             Assert.AreEqual(Severity.Error, report.Severity);
-            Assert.AreEqual(Severity.Error, report.Issues.Messages[0].Severity);
-            Assert.AreEqual("INVALID_URI", report.Issues.Messages[0].Code);
+
             Assert.AreEqual(Severity.Information, report.Issues.Messages[1].Severity);
-            Assert.AreEqual("UNUSED_OBJECT", report.Issues.Messages[1].Code);
+            Assert.AreEqual("INVALID_URI", report.Issues.Messages[1].Code);
+
+            Assert.AreEqual(Severity.Information, report.Issues.Messages[2].Severity);
+            Assert.AreEqual("UNUSED_OBJECT", report.Issues.Messages[2].Code);
         }
 
         [Test]
