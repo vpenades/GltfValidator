@@ -6,9 +6,13 @@
 
 This is a small .Net wrapper over Khronos [glTF-Validator](https://github.com/KhronosGroup/glTF-Validator)
 
+Notice that it wraps the command line executable provided by gltf-Validator.
+
+The nuget package includes the gltf-validator command line executable which is invoked as a process under the hood.
+
 ### Project status
 
-Current version uses `glTF-Validator v2.0.0-dev.3.5`
+Current version uses `glTF-Validator v2.0.0-dev.3.6`
 
 Right now, only windows platform is supported, but the project could be improved to cover linux and mac (help needed).
 
