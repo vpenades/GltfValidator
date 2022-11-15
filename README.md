@@ -12,7 +12,7 @@ The nuget package includes the gltf-validator command line executable which is i
 
 ### Project status
 
-Current version uses `glTF-Validator v2.0.0-dev.3.6`
+Current version uses `glTF-Validator v2.0.0-dev.3.8`
 
 Right now, only windows platform is supported, but the project could be improved to cover linux and mac (help needed).
 
