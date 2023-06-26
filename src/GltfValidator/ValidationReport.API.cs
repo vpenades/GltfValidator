@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GltfValidator
@@ -52,9 +53,21 @@ namespace GltfValidator
 
         #region validation
 
-        public static ValidationReport Validate(string filePath)
+        public static ValidationReport Validate(string filePath, int timeOut = 0)
         {
-            return gltf_validator.ValidateFile(filePath);
+            if (timeOut <= 0) return Validate(filePath, CancellationToken.None);
+
+            using (var cs = new CancellationTokenSource(timeOut))
+            {
+                return Validate(filePath, cs.Token);
+            }
+        }
+
+        public static ValidationReport Validate(string filePath, System.Threading.CancellationToken token)
+        {            
+            return gltf_validator.ValidateFileAsync(filePath, token).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            // return Task.Run(async () => await ValidateFileAsync(gltfFilePath, cs.Token)).Result;            
         }
 
         public static async Task<ValidationReport> ValidateAsync(string filePath, System.Threading.CancellationToken token)

@@ -35,17 +35,7 @@ namespace GltfValidator
             }
         }
 
-        public static string ValidatorExePath { get; set; }
-
-        public static ValidationReport ValidateFile(string gltfFilePath, int timeOut = 10000)
-        {
-            using(var cs = new CancellationTokenSource(timeOut))
-            {
-                return ValidateFileAsync(gltfFilePath, cs.Token).ConfigureAwait(false).GetAwaiter().GetResult();
-
-                // return Task.Run(async () => await ValidateFileAsync(gltfFilePath, cs.Token)).Result;
-            }
-        }        
+        public static string ValidatorExePath { get; set; }        
 
         public static async Task<ValidationReport> ValidateFileAsync(string gltfFilePath, System.Threading.CancellationToken token)
         {
@@ -69,7 +59,6 @@ namespace GltfValidator
 
             return ValidationReport.Parse(mainReport);
         }
-
 
         private static System.Diagnostics.ProcessStartInfo CreateStartInfo(string gltfFilePath)
         {
