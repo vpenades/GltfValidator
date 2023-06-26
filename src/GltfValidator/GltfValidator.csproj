@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net471;net5.0;net6.0</TargetFrameworks>    
+    <TargetFrameworks>netstandard2.0;net471;net6.0</TargetFrameworks>    
     <RootNamespace>GltfValidator</RootNamespace>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -16,10 +16,6 @@
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net471' ">
     <IsPlatform>true</IsPlatform>
     <RequireSystemTextJson>true</RequireSystemTextJson>
-  </PropertyGroup>  
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-    <IsPlatform>true</IsPlatform>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
@@ -37,11 +33,14 @@
   </ItemGroup>
   
   <ItemGroup Condition=" '$(RequireSystemTextJson)' == 'true' ">        
-    <PackageReference Include="System.Text.Json" Version="7.0.0" />
+    <PackageReference Include="System.Text.Json" Version="7.0.3" />
   </ItemGroup>  
 
   <ItemGroup>
+    <PackageReference Include="CliWrap" Version="3.6.4" />
+    <!--
     <PackageReference Include="ProcessX" Version="1.5.5" />
+    -->
   </ItemGroup>
 
   <ItemGroup>    

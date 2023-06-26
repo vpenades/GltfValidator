@@ -4,6 +4,9 @@ using System.Runtime.InteropServices;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Threading;
+using System.Text;
+using CliWrap;
 
 namespace GltfValidator
 {
@@ -17,9 +20,9 @@ namespace GltfValidator
     {
         static gltf_validator()
         {
-            if (RuntimeInformation.OSArchitecture != Architecture.X64) return;
+            if (RuntimeInformation.OSArchitecture != Architecture.X64) return;            
 
-            ValidatorExePath = System.IO.Path.GetDirectoryName(typeof(gltf_validator).Assembly.Location);
+            ValidatorExePath = System.AppContext.BaseDirectory;
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
@@ -36,59 +39,35 @@ namespace GltfValidator
 
         public static ValidationReport ValidateFile(string gltfFilePath, int timeOut = 10000)
         {
-            var psi = CreateStartInfo(gltfFilePath);
-
-            using (var p = System.Diagnostics.Process.Start(psi))
+            using(var cs = new CancellationTokenSource(timeOut))
             {
-                // To avoid deadlocks, always read the output stream first and then wait.  
-                var mainReport = p.StandardOutput.ReadToEnd();
+                return ValidateFileAsync(gltfFilePath, cs.Token).ConfigureAwait(false).GetAwaiter().GetResult();
 
-                if (!p.WaitForExit(timeOut)) // wait for a reasonable timeout
-                {
-                    try { p.Kill(); }
-                    catch
-                    {
-                        throw new OperationCanceledException("Time out.");
-                    }
-                }                
-
-                if (string.IsNullOrWhiteSpace(mainReport)) return null;
-
-                return ValidationReport.Parse(mainReport);
+                // return Task.Run(async () => await ValidateFileAsync(gltfFilePath, cs.Token)).Result;
             }
-        }
+        }        
 
         public static async Task<ValidationReport> ValidateFileAsync(string gltfFilePath, System.Threading.CancellationToken token)
         {
             var psi = CreateStartInfo(gltfFilePath);
 
-            using (var p = System.Diagnostics.Process.Start(psi))
-            {
-                // To avoid deadlocks, always read the output stream first and then wait.
-                var mainReport = await p.StandardOutput.ReadToEndAsync();
+            var stdOutBuffer = new StringBuilder();
+            var stdErrBuffer = new StringBuilder();
 
-                await Task.Run(p.WaitForExit, token);
+            var result = await CliWrap.Cli
+                .Wrap(psi.FileName)                
+                .WithArguments(psi.Arguments)
+                .WithValidation(CliWrap.CommandResultValidation.None)
+                .WithStandardOutputPipe(PipeTarget.ToStringBuilder(stdOutBuffer))
+                .WithStandardErrorPipe(PipeTarget.ToStringBuilder(stdErrBuffer))
+                .ExecuteAsync(token)
+                .ConfigureAwait(false);         
 
-                if (string.IsNullOrWhiteSpace(mainReport)) return null;
+            var mainReport = stdOutBuffer.ToString();
 
-                return ValidationReport.Parse(mainReport);
-            }
-        }
+            if (string.IsNullOrWhiteSpace(mainReport)) return null;
 
-        public static async Task<ValidationReport> ValidateFileAsyncProcessX(string gltfFilePath, System.Threading.CancellationToken token)
-        {
-            var psi = CreateStartInfo(gltfFilePath);
-
-            /*
-            var lines = await Cysharp.Diagnostics.ProcessX
-                .StartAsync(psi)
-                .ToTask(token);*/
-
-            var (_, stdout, stderror) = Cysharp.Diagnostics.ProcessX.GetDualAsyncEnumerable(psi);
-            var lines = await stdout.ToTask();
-            var error = await stderror.ToTask();
-
-            return ValidationReport.Parse(string.Join("\r\n", lines));
+            return ValidationReport.Parse(mainReport);
         }
 
 
