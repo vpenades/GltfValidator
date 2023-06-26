@@ -59,7 +59,7 @@ namespace GltfValidator
 
         public static async Task<ValidationReport> ValidateAsync(string filePath, System.Threading.CancellationToken token)
         {
-            return await gltf_validator.ValidateFileAsyncProcessX(filePath, token);
+            return await gltf_validator.ValidateFileAsync(filePath, token);
         }
 
         #endregion
@@ -72,7 +72,7 @@ namespace GltfValidator
 
             options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
             options.PropertyNameCaseInsensitive = true;
-            options.IgnoreNullValues = true;
+            options.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
             options.IncludeFields = true;
 
             var report = JsonSerializer.Deserialize<ValidationReport>(reportJson, options);
@@ -82,6 +82,7 @@ namespace GltfValidator
             return report;
         }
         
+        /// <inheritdoc/>
         public override string ToString()
         {
             var options = new JsonSerializerOptions();
@@ -96,7 +97,7 @@ namespace GltfValidator
 
         #region properties
 
-        public bool HasUnsupportedExtensions => Issues.Messages.Any(item => item.Text == "UNSUPPORTED_EXTENSION");
+        public bool HasUnsupportedExtensions => Issues.Messages.Any(item => item.Code == "UNSUPPORTED_EXTENSION");
 
         public Severity Severity => Issues.Severity;        
         
