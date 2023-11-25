@@ -13,7 +13,7 @@ namespace GltfValidator
         public void Test1()
         {
             var path = TestContext.CurrentContext.TestDirectory;
-            path = System.IO.Path.Combine(path, "Resources\\Avocado\\Avocado.gltf");
+            path = System.IO.Path.Combine(path, "Resources/Avocado/Avocado.gltf");
 
             var report = ValidationReport.Validate(path);
 
@@ -28,7 +28,7 @@ namespace GltfValidator
         public async System.Threading.Tasks.Task Test1Async()
         {
             var path = TestContext.CurrentContext.TestDirectory;
-            path = System.IO.Path.Combine(path, "Resources\\Avocado\\Avocado.gltf");
+            path = System.IO.Path.Combine(path, "Resources/Avocado/Avocado.gltf");
 
             var report = await ValidationReport.ValidateAsync(path, System.Threading.CancellationToken.None);
 
@@ -43,7 +43,7 @@ namespace GltfValidator
         public void Test2()
         {
             var path = TestContext.CurrentContext.TestDirectory;
-            path = System.IO.Path.Combine(path, "Resources\\invalid_uri_data.glb");
+            path = System.IO.Path.Combine(path, "Resources/invalid_uri_data.glb");
 
             var report = ValidationReport.Validate(path);           
 
@@ -64,7 +64,7 @@ namespace GltfValidator
         public void Test3()
         {
             var path = TestContext.CurrentContext.TestDirectory;
-            path = System.IO.Path.Combine(path, "Resources\\empty_objects.gltf");
+            path = System.IO.Path.Combine(path, "Resources/empty_objects.gltf");
 
             var report = ValidationReport.Validate(path);
 

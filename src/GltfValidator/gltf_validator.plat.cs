@@ -20,8 +20,6 @@ namespace GltfValidator
     {
         static gltf_validator()
         {
-            if (RuntimeInformation.OSArchitecture != Architecture.X64) return;            
-
             ValidatorExePath = System.AppContext.BaseDirectory;
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -29,10 +27,12 @@ namespace GltfValidator
                 ValidatorExePath = System.IO.Path.Combine(ValidatorExePath, "gltf_validator.exe");
             }
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 ValidatorExePath = System.IO.Path.Combine(ValidatorExePath, "gltf_validator");
             }
+
+
         }
 
         public static string ValidatorExePath { get; set; }        
