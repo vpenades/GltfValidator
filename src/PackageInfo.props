@@ -4,7 +4,7 @@
   <PropertyGroup>
 
     <Authors>Vicente Penades</Authors>
-    <Copyright>Copyright (c) 2021 Vicente Penades</Copyright>
+    <Copyright>Copyright (c) 2023 Vicente Penades</Copyright>
     <Description>.NET wrapper over Khronos official glTF-Validator</Description>
 
     <RepositoryType>git</RepositoryType>

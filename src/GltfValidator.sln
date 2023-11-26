@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FD2FA1FE-05B6-4A48-AF39-D69A8269C313}"
 	ProjectSection(SolutionItems) = preProject
 		build-preview.cmd = build-preview.cmd
+		..\.github\workflows\dotnet.yml = ..\.github\workflows\dotnet.yml
 		PackageInfo.props = PackageInfo.props
 		..\README.md = ..\README.md
 		TODO.MD = TODO.MD
