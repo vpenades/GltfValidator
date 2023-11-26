@@ -24,12 +24,17 @@ namespace GltfValidator
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                ValidatorExePath = System.IO.Path.Combine(ValidatorExePath, "gltf_validator.exe");
+                ValidatorExePath = System.IO.Path.Combine(ValidatorExePath, "gltfv", "win64", "gltf_validator.exe");
             }
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                ValidatorExePath = System.IO.Path.Combine(ValidatorExePath, "gltf_validator");
+                ValidatorExePath = System.IO.Path.Combine(ValidatorExePath, "gltfv", "linux64", "gltf_validator");
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                ValidatorExePath = System.IO.Path.Combine(ValidatorExePath, "gltfv", "macos64", "gltf_validator");
             }
 
 

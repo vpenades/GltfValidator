@@ -33,20 +33,25 @@
   </ItemGroup>
   
   <ItemGroup Condition=" '$(RequireSystemTextJson)' == 'true' ">        
-    <PackageReference Include="System.Text.Json" Version="7.0.3" />
+    <PackageReference Include="System.Text.Json" Version="8.0.0" />
   </ItemGroup>  
 
   <ItemGroup>
-    <PackageReference Include="CliWrap" Version="3.6.4" />
-    <!--
-    <PackageReference Include="ProcessX" Version="1.5.5" />
-    -->
+    <PackageReference Include="CliWrap" Version="3.6.4" />    
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <Content Include="..\..\tools\win64\gltf_validator.exe" Link="gltfv\\win64\\gltf_validator.exe" CopyToOutputDirectory="PreserveNewest"
+             Pack="true" PackageCopyToOutput="true"
+             PackagePath="content\gltfv\win64;contentFiles\any\net471\gltfv\win64;contentFiles\any\net6.0\gltfv\win64;contentFiles\any\netstandard2.0\gltfv\win64"/>
+
+    <Content Include="..\..\tools\linux64\gltf_validator" Link="gltfv\\linux64\\gltf_validator" CopyToOutputDirectory="PreserveNewest"
+             Pack="true" PackageCopyToOutput="true"
+             PackagePath="content\gltfv\linux64;contentFiles\any\net471\gltfv\linux64;contentFiles\any\net6.0\gltfv\linux64;contentFiles\any\netstandard2.0\gltfv\linux64"/>
+
+    <Content Include="..\..\tools\macos64\gltf_validator" Link="gltfv\\macos64\\gltf_validator" CopyToOutputDirectory="PreserveNewest"
+             Pack="true" PackageCopyToOutput="true"
+             PackagePath="content\gltfv\macos64;contentFiles\any\net471\gltfv\macos64;contentFiles\any\net6.0\gltfv\macos64;contentFiles\any\netstandard2.0\gltfv\macos64"/>
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="..\..\tools\win64\gltf_validator.exe" Link="gltf_validator.exe" Condition=" '$(OS)' == 'Windows_NT' "  CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />
-    <Content Include="..\..\tools\linux64\gltf_validator" Link="gltf_validator" Condition=" $([MSBuild]::IsOSPlatform('Linux'))" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />
-    <Content Include="..\..\tools\macos64\gltf_validator" Link="gltf_validator"  Condition=" $([MSBuild]::IsOSPlatform('OSX'))" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />
-  </ItemGroup>  
 
 </Project>

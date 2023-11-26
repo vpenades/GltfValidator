@@ -53,21 +53,21 @@ namespace GltfValidator
 
         #region validation
 
-        public static ValidationReport Validate(string filePath, int timeOut = 0)
+        public static ValidationReport Validate(string filePath, int timeOut = 0, bool useTask = false)
         {
-            if (timeOut <= 0) return Validate(filePath, CancellationToken.None);
+            if (timeOut <= 0) return Validate(filePath, CancellationToken.None, useTask);
 
             using (var cs = new CancellationTokenSource(timeOut))
             {
-                return Validate(filePath, cs.Token);
+                return Validate(filePath, cs.Token, useTask);
             }
         }
 
-        public static ValidationReport Validate(string filePath, System.Threading.CancellationToken token)
-        {            
-            return gltf_validator.ValidateFileAsync(filePath, token).ConfigureAwait(false).GetAwaiter().GetResult();
-
-            // return Task.Run(async () => await ValidateFileAsync(gltfFilePath, cs.Token)).Result;            
+        public static ValidationReport Validate(string filePath, System.Threading.CancellationToken token, bool useTask = false)
+        {
+            return useTask
+                ? Task.Run(async () => await gltf_validator.ValidateFileAsync(filePath, token).ConfigureAwait(false)).Result
+                : gltf_validator.ValidateFileAsync(filePath, token).ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
         public static async Task<ValidationReport> ValidateAsync(string filePath, System.Threading.CancellationToken token)
