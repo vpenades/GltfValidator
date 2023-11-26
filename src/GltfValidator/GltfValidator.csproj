@@ -43,9 +43,10 @@
     -->
   </ItemGroup>
 
-  <ItemGroup>    
-    <Content Include="..\..\tools\win64\gltf_validator.exe" Link="gltf_validator.exe" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />
-    <Content Include="..\..\tools\linux64\gltf_validator" Link="gltf_validator" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />    
+  <ItemGroup>
+    <Content Include="..\..\tools\win64\gltf_validator.exe" Link="gltf_validator.exe" Condition=" '$(OS)' == 'Windows_NT' "  CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />
+    <Content Include="..\..\tools\linux64\gltf_validator" Link="gltf_validator" Condition=" $([MSBuild]::IsOSPlatform('Linux'))" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />
+    <Content Include="..\..\tools\macos64\gltf_validator" Link="gltf_validator"  Condition=" $([MSBuild]::IsOSPlatform('OSX'))" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />
   </ItemGroup>  
 
 </Project>
