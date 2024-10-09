@@ -7,27 +7,35 @@ jobs:
     defaults:
       run:
         working-directory: ./src
+
     runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
-        dotnet-version: [ '6.0.x' ]
+        dotnet-version: [ '8.0.x' ]
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@v4
+  
       - name: Setup dotnet ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
+
       - name: Install dependencies
         run: dotnet restore
+
       - name: chmod script
         run: chmod +x ../tools/linux64/gltf_validator
         if: matrix.os == 'ubuntu-latest'
+
       - name: chmod script
         run: chmod +x ../tools/macos64/gltf_validator
         if: matrix.os == 'macos-latest'
+
       - name: Build
         run: dotnet build
+
       - name: Test
         run: dotnet test

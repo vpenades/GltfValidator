@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net471;net6.0</TargetFrameworks>    
+    <TargetFrameworks>netstandard2.0;net471;net6.0;net8.0</TargetFrameworks>    
     <RootNamespace>GltfValidator</RootNamespace>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -22,6 +22,10 @@
     <IsPlatform>true</IsPlatform>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+    <IsPlatform>true</IsPlatform>
+  </PropertyGroup>
+
   <ItemGroup Condition=" '$(IsPlatform)' == 'true' ">
     <Compile Remove="*.std.cs" />
     <None Include="*.std.cs" />
@@ -33,25 +37,19 @@
   </ItemGroup>
   
   <ItemGroup Condition=" '$(RequireSystemTextJson)' == 'true' ">        
-    <PackageReference Include="System.Text.Json" Version="8.0.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
   </ItemGroup>  
 
   <ItemGroup>
-    <PackageReference Include="CliWrap" Version="3.6.4" />    
+    <PackageReference Include="CliWrap" Version="3.6.6" />    
   </ItemGroup>  
   
   <ItemGroup>
-    <Content Include="..\..\tools\win64\gltf_validator.exe" Link="gltfv\\win64\\gltf_validator.exe" CopyToOutputDirectory="PreserveNewest"
-             Pack="true" PackageCopyToOutput="true"
-             PackagePath="content\gltfv\win64;contentFiles\any\net471\gltfv\win64;contentFiles\any\net6.0\gltfv\win64;contentFiles\any\netstandard2.0\gltfv\win64"/>
+    <Content Include="..\..\tools\win64\gltf_validator.exe" Link="gltfv\\win64\\gltf_validator.exe" CopyToOutputDirectory="PreserveNewest" Pack="true" PackageCopyToOutput="true" PackagePath="content\gltfv\win64;contentFiles\any\net471\gltfv\win64;contentFiles\any\net6.0\gltfv\win64;contentFiles\any\netstandard2.0\gltfv\win64" />
 
-    <Content Include="..\..\tools\linux64\gltf_validator" Link="gltfv\\linux64\\gltf_validator" CopyToOutputDirectory="PreserveNewest"
-             Pack="true" PackageCopyToOutput="true"
-             PackagePath="content\gltfv\linux64;contentFiles\any\net471\gltfv\linux64;contentFiles\any\net6.0\gltfv\linux64;contentFiles\any\netstandard2.0\gltfv\linux64"/>
+    <Content Include="..\..\tools\linux64\gltf_validator" Link="gltfv\\linux64\\gltf_validator" CopyToOutputDirectory="PreserveNewest" Pack="true" PackageCopyToOutput="true" PackagePath="content\gltfv\linux64;contentFiles\any\net471\gltfv\linux64;contentFiles\any\net6.0\gltfv\linux64;contentFiles\any\netstandard2.0\gltfv\linux64" />
 
-    <Content Include="..\..\tools\macos64\gltf_validator" Link="gltfv\\macos64\\gltf_validator" CopyToOutputDirectory="PreserveNewest"
-             Pack="true" PackageCopyToOutput="true"
-             PackagePath="content\gltfv\macos64;contentFiles\any\net471\gltfv\macos64;contentFiles\any\net6.0\gltfv\macos64;contentFiles\any\netstandard2.0\gltfv\macos64"/>
+    <Content Include="..\..\tools\macos64\gltf_validator" Link="gltfv\\macos64\\gltf_validator" CopyToOutputDirectory="PreserveNewest" Pack="true" PackageCopyToOutput="true" PackagePath="content\gltfv\macos64;contentFiles\any\net471\gltfv\macos64;contentFiles\any\net6.0\gltfv\macos64;contentFiles\any\netstandard2.0\gltfv\macos64" />
   </ItemGroup>
 
 </Project>

@@ -21,7 +21,7 @@ namespace GltfValidator
 
             _Check(report.Issues);
 
-            Assert.AreEqual(Severity.Hint, report.Severity);
+            Assert.That(report.Severity, Is.EqualTo(Severity.Hint));
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace GltfValidator
 
             _Check(report.Issues);
 
-            Assert.AreEqual(Severity.Hint, report.Severity);
+            Assert.That(report.Severity, Is.EqualTo(Severity.Hint));
         }
 
         [Test]
@@ -51,13 +51,13 @@ namespace GltfValidator
 
             _Check(report.Issues);
 
-            Assert.AreEqual(Severity.Error, report.Severity);
+            Assert.That(report.Severity, Is.EqualTo(Severity.Error));
 
-            Assert.AreEqual(Severity.Information, report.Issues.Messages[1].Severity);
-            Assert.AreEqual("INVALID_URI", report.Issues.Messages[1].Code);
+            Assert.That(report.Issues.Messages[1].Severity, Is.EqualTo(Severity.Information));
+            Assert.That(report.Issues.Messages[1].Code, Is.EqualTo("INVALID_URI"));
 
-            Assert.AreEqual(Severity.Information, report.Issues.Messages[2].Severity);
-            Assert.AreEqual("UNUSED_OBJECT", report.Issues.Messages[2].Code);
+            Assert.That(report.Issues.Messages[2].Severity, Is.EqualTo(Severity.Information));
+            Assert.That(report.Issues.Messages[2].Code, Is.EqualTo("UNUSED_OBJECT"));
         }
 
         [Test]
@@ -72,16 +72,16 @@ namespace GltfValidator
 
             _Check(report.Issues);
 
-            Assert.AreEqual(Severity.Error, report.Severity);
-            Assert.AreEqual(8, report.Issues.NumErrors);
+            Assert.That(report.Severity, Is.EqualTo(Severity.Error));
+            Assert.That(report.Issues.NumErrors, Is.EqualTo(8));
         }
 
         private static void _Check(Issues issues)
         {
-            Assert.AreEqual(issues.NumErrors, issues.Messages.Count(item => item.Severity == Severity.Error));
-            Assert.AreEqual(issues.NumWarnings, issues.Messages.Count(item => item.Severity == Severity.Warning));
-            Assert.AreEqual(issues.NumInfos, issues.Messages.Count(item => item.Severity == Severity.Information));
-            Assert.AreEqual(issues.NumHints, issues.Messages.Count(item => item.Severity == Severity.Hint));
+            Assert.That(issues.Messages.Count(item => item.Severity == Severity.Error), Is.EqualTo(issues.NumErrors));
+            Assert.That(issues.Messages.Count(item => item.Severity == Severity.Warning), Is.EqualTo(issues.NumWarnings));
+            Assert.That(issues.Messages.Count(item => item.Severity == Severity.Information), Is.EqualTo(issues.NumInfos));
+            Assert.That(issues.Messages.Count(item => item.Severity == Severity.Hint), Is.EqualTo(issues.NumHints));
         }
     }
 }
