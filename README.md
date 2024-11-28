@@ -18,7 +18,7 @@ Supported platforms are:
 - Windows (tested)
 - Linux (untested)
 - Mac (untested)
-- 
+
 ### Usage
 
 The main usage of this library is for unit tests and content pipelines.
