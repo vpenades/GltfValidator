@@ -14,8 +14,11 @@ The nuget package includes the gltf-validator command line executable which is i
 
 Current version uses `glTF-Validator v2.0.0-dev.3.10`
 
-Right now, only windows platform is supported, but the project could be improved to cover linux and mac (help needed).
-
+Supported platforms are:
+- Windows (tested)
+- Linux (untested)
+- Mac (untested)
+- 
 ### Usage
 
 The main usage of this library is for unit tests and content pipelines.
