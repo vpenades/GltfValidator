@@ -3,7 +3,7 @@
 set GETTIMEKEY=powershell get-date -format "{yyyyMMddHHmm}"
 for /f %%i in ('%GETTIMEKEY%') do set TIMEKEY=%%i
 
-set VERSIONSUFFIX=%TIMEKEY%
+set VERSIONSUFFIX=dev.3.10.%TIMEKEY%
 
 echo Building %VERSIONSUFFIX%
 

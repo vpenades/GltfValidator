@@ -6,7 +6,7 @@
   <!-- https://stackoverflow.com/questions/23533838/how-to-get-buildid-in-msbuild -->
 
   <PropertyGroup>
-    <VersionPrefix>3.10.0</VersionPrefix>    
+    <VersionPrefix>2.0.0</VersionPrefix>    
   </PropertyGroup>
 
   <PropertyGroup>
